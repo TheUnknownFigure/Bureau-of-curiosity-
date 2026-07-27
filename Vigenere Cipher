@@ -1,0 +1,67 @@
+# Vigenere Cipher
+# Key: OBSESSION
+
+KEY = "OBSESSION"
+
+def  (text):
+    result = ""
+    key_index = 0
+
+    for char in text:
+        if char.isalpha():
+            shift = ord(KEY[key_index % len(KEY)].upper()) - ord('A')
+
+            if char.isupper():
+                result += chr((ord(char)-65 + shift) % 26 + 65)
+            else:
+                result += chr((ord(char)-97 + shift) % 26 + 97)
+
+            key_index += 1
+        else:
+            result += char
+
+    return result
+
+
+def vigenere_decrypt(text):
+    result = ""
+    key_index = 0
+
+    for char in text:
+        if char.isalpha():
+            shift = ord(KEY[key_index % len(KEY)].upper()) - ord('A')
+
+            if char.isupper():
+                result += chr((ord(char)-65 - shift) % 26 + 65)
+            else:
+                result += chr((ord(char)-97 - shift) % 26 + 97)
+
+            key_index += 1
+        else:
+            result += char
+
+    return result
+
+
+while True:
+    print("\n--- VIGENERE CIPHER MODULE ---")
+    print("Key: OBSESSION")
+    print("1. Encrypt")
+    print("2. Decrypt")
+    print("3. Exit")
+
+    choice = input("Select: ")
+
+    if choice == "1":
+        msg = input("Enter message: ")
+        print("Encrypted:", vigenere_encrypt(msg))
+
+    elif choice == "2":
+        msg = input("Enter encrypted message: ")
+        print("Decrypted:", vigenere_decrypt(msg))
+
+    elif choice == "3":
+        break
+
+    else:
+        print("Invalid option")
