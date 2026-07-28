@@ -1,0 +1,57 @@
+import math
+
+def is_prime(n):
+    if n < 2:
+        return False
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            return False
+        i += 1
+    return True
+
+def generate_primes(n):
+    primes = []
+    num = 2
+
+    while len(primes) < n:
+        if is_prime(num):
+            primes.append(num)
+        num += 1
+
+    return primes
+
+def compute_series(N):
+
+    primes = generate_primes(N)
+
+    harmonic_prime = 0.0
+    total = 0.0
+
+    for n in range(2, N + 1):
+
+        harmonic_prime += 1 / primes[n-1]
+
+        term = math.log(n) / (n*n * harmonic_prime)
+
+        total += term
+
+    return total
+
+
+while True:
+
+    print("\nSeries: log(n) / (n^2 * H_n)")
+    print("--------------------------------")
+
+    N = int(input("Enter number of terms: "))
+
+    result = compute_series(N)
+
+    print("\nSum of", N, "terms =", result)
+
+    again = input("\nRun again? (y/n): ")
+
+    if again.lower() != "y":
+        print("Program finished.")
+        break
